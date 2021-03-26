@@ -3,12 +3,15 @@ const express = require("express");
 const morgan = require("morgan");
 const { port } = require("./config");
 
-// Call scraper script?
+// Call weapon scrapers
 const scrapeSwords = require("./scripts/weapons/scrapeSwords");
 const scrapeClaymores = require("./scripts/weapons/scrapeClaymores");
 const scrapePolearms = require("./scripts/weapons/scrapePolearms");
 const scrapeBows = require("./scripts/weapons/scrapeBows");
 const scrapeCatalysts = require("./scripts/weapons/scrapeCatalysts");
+
+// Call character scraper
+const scrapeCharacters = require("./scrapeCharacters");
 
 // Set up application
 const app = express();
@@ -43,6 +46,12 @@ app.get("/bows", async (req, res) => {
 
 app.get("/catalysts", async (req, res) => {
   const result = await scrapeCatalysts();
+  console.log(result.length);
+  res.json(result);
+});
+
+app.get("/characters", async (req, res) => {
+  const result = await scrapeCharacters();
   console.log(result.length);
   res.json(result);
 });
