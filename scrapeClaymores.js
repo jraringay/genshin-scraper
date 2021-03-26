@@ -11,35 +11,35 @@ const fetchHtml = async url => {
   }
 };
 
-const extractSwords = selector => {
-  const swordUrl = selector
+const extractClaymores = selector => {
+  const claymoreUrl = selector
     .attr("href")
     .trim();
 
-  const swordName = selector
+  const claymoreName = selector
     .text()
     .trim();
 
-  return { swordUrl, swordName };
+  return { claymoreUrl, claymoreName };
 
 }
 
-const scrapeSwords = async () => {
-  const swordUrl = "https://genshin.honeyhunterworld.com/sword/"
+const scrapeClaymores = async () => {
+  const swordUrl = "https://genshin.honeyhunterworld.com/claymore/"
   const html = await fetchHtml(swordUrl);
   const selector = cheerio.load(html);
   // const searchResults = selector("body")
   //   .find(".wrappercont > .art_stat_table");
   const searchResults = selector("body")
-    .find("a[href^='/db/weapon/']:lt(48):odd");
+    .find("a[href^='/db/weapon/']:lt(42):odd");
   
-  const swords = searchResults.map((index, element) => {
+  const claymores = searchResults.map((index, element) => {
     const elementSelector = selector(element);
-    return extractSwords(elementSelector);
+    return extractClaymores(elementSelector);
   })
   .get();
       
-  return swords;  
+  return claymores;  
 }
 
 /* Backup code */
@@ -66,4 +66,4 @@ const scrapeSwords = async () => {
 
 
 
-module.exports = scrapeSwords;
+module.exports = scrapeClaymores;

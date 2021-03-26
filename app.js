@@ -5,6 +5,7 @@ const { port } = require("./config");
 
 // Call scraper script?
 const scrapeSwords = require("./scrapeSwords");
+const scrapeClaymores = require("./scrapeClaymores");
 
 // Set up application
 const app = express();
@@ -13,8 +14,14 @@ const app = express();
 app.use(morgan("dev"));
 
 
-app.get("/", async (req, res) => {
+app.get("/swords", async (req, res) => {
   const result = await scrapeSwords();
+  console.log(result.length);
+  res.json(result);
+});
+
+app.get("/claymores", async (req, res) => {
+  const result = await scrapeClaymores();
   console.log(result.length);
   res.json(result);
 });
