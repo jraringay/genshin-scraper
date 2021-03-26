@@ -13,12 +13,10 @@ const fetchHtml = async url => {
 
 const extractSwords = selector => {
   const linkToSword = selector
-    .find("a[href*='/db/weapon/']")
     .attr("href")
     .trim();
 
   const swordName = selector
-    .find("a[href*='/db/weapon/']")
     .text()
     .trim();
 
@@ -30,9 +28,10 @@ const scrapeSwords = async () => {
   const swordUrl = "https://genshin.honeyhunterworld.com/sword/"
   const html = await fetchHtml(swordUrl);
   const selector = cheerio.load(html);
-  // .wrappercont >
+  // const searchResults = selector("body")
+  //   .find(".wrappercont > .art_stat_table");
   const searchResults = selector("body")
-    .find(".wrappercont > .art_stat_table");
+    .find("a[href^='/db/weapon/']");
   
   const swords = searchResults.map((index, element) => {
     const elementSelector = selector(element);
