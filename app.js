@@ -4,11 +4,11 @@ const morgan = require("morgan");
 const { port } = require("./config");
 
 // Call scraper script?
-const scrapeSwords = require("./scrapeSwords");
-const scrapeClaymores = require("./scrapeClaymores");
-const scrapePolearms = require("./scrapePolearms");
-const scrapeBows = require("./scrapeBows");
-const scrapeCatalysts = require("./scrapeCatalysts");
+const scrapeSwords = require("./scripts/weapons/scrapeSwords");
+const scrapeClaymores = require("./scripts/weapons/scrapeClaymores");
+const scrapePolearms = require("./scripts/weapons/scrapePolearms");
+const scrapeBows = require("./scripts/weapons/scrapeBows");
+const scrapeCatalysts = require("./scripts/weapons/scrapeCatalysts");
 
 // Set up application
 const app = express();
