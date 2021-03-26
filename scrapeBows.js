@@ -11,35 +11,35 @@ const fetchHtml = async url => {
   }
 };
 
-const extractSwords = selector => {
-  const swordUrl = selector
+const extractBows = selector => {
+  const bowUrl = selector
     .attr("href")
     .trim();
 
-  const swordName = selector
+  const bowName = selector
     .text()
     .trim();
 
-  return { swordUrl, swordName };
+  return { bowUrl, bowName };
 
 }
 
-const scrapeSwords = async () => {
-  const url = "https://genshin.honeyhunterworld.com/sword/"
+const scrapeBows = async () => {
+  const url = "https://genshin.honeyhunterworld.com/bow/"
   const html = await fetchHtml(url);
   const selector = cheerio.load(html);
   // const searchResults = selector("body")
   //   .find(".wrappercont > .art_stat_table");
   const searchResults = selector("body")
-    .find("a[href^='/db/weapon/']:lt(48):odd");
+    .find("a[href^='/db/weapon/']:lt(43):odd");
   
-  const swords = searchResults.map((index, element) => {
+  const bows = searchResults.map((index, element) => {
     const elementSelector = selector(element);
-    return extractSwords(elementSelector);
+    return extractBows(elementSelector);
   })
   .get();
       
-  return swords;  
+  return bows;  
 }
 
 /* Backup code */
@@ -66,4 +66,4 @@ const scrapeSwords = async () => {
 
 
 
-module.exports = scrapeSwords;
+module.exports = scrapeBows;

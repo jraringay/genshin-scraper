@@ -25,8 +25,8 @@ const extractClaymores = selector => {
 }
 
 const scrapeClaymores = async () => {
-  const swordUrl = "https://genshin.honeyhunterworld.com/claymore/"
-  const html = await fetchHtml(swordUrl);
+  const url = "https://genshin.honeyhunterworld.com/claymore/"
+  const html = await fetchHtml(url);
   const selector = cheerio.load(html);
   // const searchResults = selector("body")
   //   .find(".wrappercont > .art_stat_table");

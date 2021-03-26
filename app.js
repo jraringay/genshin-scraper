@@ -7,6 +7,7 @@ const { port } = require("./config");
 const scrapeSwords = require("./scrapeSwords");
 const scrapeClaymores = require("./scrapeClaymores");
 const scrapePolearms = require("./scrapePolearms");
+const scrapeBows = require("./scrapeBows");
 
 // Set up application
 const app = express();
@@ -32,6 +33,13 @@ app.get("/polearms", async (req, res) => {
   console.log(result.length);
   res.json(result);
 });
+
+app.get("/bows", async (req, res) => {
+  const result = await scrapeBows();
+  console.log(result.length);
+  res.json(result);
+});
+
 
 // Run application
 app.listen(port, () => {
