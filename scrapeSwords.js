@@ -12,7 +12,7 @@ const fetchHtml = async url => {
 };
 
 const extractSwords = selector => {
-  const linkToSword = selector
+  const swordUrl = selector
     .attr("href")
     .trim();
 
@@ -20,9 +20,11 @@ const extractSwords = selector => {
     .text()
     .trim();
 
-  return { linkToSword, swordName };
+  return { swordUrl, swordName };
 
 }
+
+// 57(56) 48(49)
 
 const scrapeSwords = async () => {
   const swordUrl = "https://genshin.honeyhunterworld.com/sword/"
@@ -31,7 +33,7 @@ const scrapeSwords = async () => {
   // const searchResults = selector("body")
   //   .find(".wrappercont > .art_stat_table");
   const searchResults = selector("body")
-    .find("a[href^='/db/weapon/']");
+    .find("a[href^='/db/weapon/']:lt(48):odd");
   
   const swords = searchResults.map((index, element) => {
     const elementSelector = selector(element);
