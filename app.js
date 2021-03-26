@@ -6,6 +6,7 @@ const { port } = require("./config");
 // Call scraper script?
 const scrapeSwords = require("./scrapeSwords");
 const scrapeClaymores = require("./scrapeClaymores");
+const scrapePolearms = require("./scrapePolearms");
 
 // Set up application
 const app = express();
@@ -22,6 +23,12 @@ app.get("/swords", async (req, res) => {
 
 app.get("/claymores", async (req, res) => {
   const result = await scrapeClaymores();
+  console.log(result.length);
+  res.json(result);
+});
+
+app.get("/polearms", async (req, res) => {
+  const result = await scrapePolearms();
   console.log(result.length);
   res.json(result);
 });
