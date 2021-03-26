@@ -8,6 +8,7 @@ const scrapeSwords = require("./scrapeSwords");
 const scrapeClaymores = require("./scrapeClaymores");
 const scrapePolearms = require("./scrapePolearms");
 const scrapeBows = require("./scrapeBows");
+const scrapeCatalysts = require("./scrapeCatalysts");
 
 // Set up application
 const app = express();
@@ -40,6 +41,11 @@ app.get("/bows", async (req, res) => {
   res.json(result);
 });
 
+app.get("/catalysts", async (req, res) => {
+  const result = await scrapeCatalysts();
+  console.log(result.length);
+  res.json(result);
+});
 
 // Run application
 app.listen(port, () => {
