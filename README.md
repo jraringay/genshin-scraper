@@ -9,4 +9,4 @@ Initial Commit - More details will be added later on.
 
 ### Credits for the raw data
 - Genshin Honey Hunter World (https://genshin.honeyhunterworld.com/)
-- @Dimbreath
+- Dimbreath (https://github.com/Dimbreath)
