@@ -13,6 +13,9 @@ const scrapeCatalysts = require("./scripts/weapons/scrapeCatalysts");
 // Call character scraper
 const scrapeCharacters = require("./scrapeCharacters");
 
+// Call artifacts scraper
+const scrapeArtifactSets = require("./scrapeArtifactSets");
+
 // Set up application
 const app = express();
 
@@ -52,6 +55,12 @@ app.get("/catalysts", async (req, res) => {
 
 app.get("/characters", async (req, res) => {
   const result = await scrapeCharacters();
+  console.log(result.length);
+  res.json(result);
+});
+
+app.get("/artifacts", async (req, res) => {
+  const result = await scrapeArtifactSets();
   console.log(result.length);
   res.json(result);
 });
