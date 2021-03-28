@@ -1,46 +1,36 @@
 // Call required packages
 const cheerio = require("cheerio");
-const axios = require("axios").default;
+const fetchHtml = require("../../../utilities/fetchHtml");
 
-const fetchHtml = async url => {
-  try {
-    const { data } = await axios.get(url);
-    return data;
-  } catch (error) {
-    console.error(`ERROR: An error occurred while trying to fetch the URL: ${url}`);
-  }
-};
-
-const extractCharacters = selector => {
-  const characterUrl = selector
+const extractArtifactSets = selector => {
+  const artifactSetUrl = selector
     .attr("href")
     .trim();
 
-  const characterName = selector
-    .find(".sea_charname")
+  const artifactSetName = selector
     .text()
     .trim();
 
-  return { characterUrl, characterName };
+  return { artifactSetUrl, artifactSetName };
 
 }
 
-const scrapeCharacters = async () => {
-  const url = "https://genshin.honeyhunterworld.com/db/char/characters/"
+const scrapeArtifactSets = async () => {
+  const url = "https://genshin.honeyhunterworld.com/db/artifact/"
   const html = await fetchHtml(url);
   const selector = cheerio.load(html);
   // const searchResults = selector("body")
   //   .find(".wrappercont > .art_stat_table");
   const searchResults = selector("body")
-    .find(".char_sea_cont > a[href^='/db/char/']:odd");
+    .find("a[href^='/db/art/family/']:odd");
   
-  const characters = searchResults.map((index, element) => {
+  const artifactSets = searchResults.map((index, element) => {
     const elementSelector = selector(element);
-    return extractCharacters(elementSelector);
+    return extractArtifactSets(elementSelector);
   })
   .get();
       
-  return characters;  
+  return artifactSets;  
 }
 
 /* Backup code */
@@ -67,4 +57,4 @@ const scrapeCharacters = async () => {
 
 
 
-module.exports = scrapeCharacters;
+module.exports = scrapeArtifactSets;
