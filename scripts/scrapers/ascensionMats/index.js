@@ -5,6 +5,7 @@ const scrapeLocalMats = require("./scrapeLocalMats");
 const scrapeCommonMats = require("./scrapeCommonMats");
 const scrapeTalentMats = require("./scrapeTalentMats");
 const scrapeWeaponPrimary = require("./scrapeWeaponPrimary");
+const scrapeWeaponSecondary = require("./scrapeWeaponSecondary");
 
 module.exports = {
   scrapeJewels,
@@ -12,5 +13,6 @@ module.exports = {
   scrapeLocalMats,
   scrapeCommonMats,
   scrapeTalentMats,
-  scrapeWeaponPrimary
+  scrapeWeaponPrimary,
+  scrapeWeaponSecondary
 }

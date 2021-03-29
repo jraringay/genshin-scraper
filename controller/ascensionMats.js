@@ -4,7 +4,8 @@ const {
   scrapeLocalMats,
   scrapeCommonMats,
   scrapeTalentMats,
-  scrapeWeaponPrimary
+  scrapeWeaponPrimary,
+  scrapeWeaponSecondary
 } = require("../scripts/scrapers/index").ascensionMats;
 
 module.exports = {
@@ -61,6 +62,16 @@ module.exports = {
   weaponPrimary: async (_req, res) => {
     try {
       const result = await scrapeWeaponPrimary();
+      console.log(result.length);
+      res.json(result);
+    } catch (error) {
+      console.error(`ERROR: ${error.message}`);
+    }
+  },
+
+  weaponSecondary: async (_req, res) => {
+    try {
+      const result = await scrapeWeaponSecondary();
       console.log(result.length);
       res.json(result);
     } catch (error) {

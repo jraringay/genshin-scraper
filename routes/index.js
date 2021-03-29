@@ -27,7 +27,8 @@ const {
   localMats,
   commonMats,
   talentMats,
-  weaponPrimary
+  weaponPrimary,
+  weaponSecondary
 } = require("../controller/ascensionMats")
 
 // Weapon Routes
@@ -55,5 +56,6 @@ router.get("/character-ascension/localmats", localMats);
 router.get("/character-ascension/commonmats", commonMats);
 router.get("/talent-ascension", talentMats);
 router.get("/weapon-ascension/primary", weaponPrimary);
+router.get("/weapon-ascension/secondary", weaponSecondary);
 
 module.exports = router;
