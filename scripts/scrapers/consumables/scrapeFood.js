@@ -8,16 +8,16 @@ const extractFood = selector => {
     .attr("href")
     .trim();
 
-  const foodBuffType = selector
+  const foodBuff = selector
     .find(".itempic_cont > img[src^='/img/icons/buffs/']")
     .attr("src");
 
-  let foodBuff;
+  let foodBuffType;
 
-  if (foodBuffType == null) {
-    foodBuff = "N/A";
+  if (foodBuff == null) {
+    foodBuffType = "N/A";
   } else {
-    foodBuff = foodBuffType.trim();
+    foodBuffType = foodBuff.trim();
   }
 
   const foodName = selector
@@ -25,7 +25,7 @@ const extractFood = selector => {
     .text()
     .trim();
 
-  return { foodUrl, foodBuff, foodName };
+  return { foodUrl, foodBuffType, foodName };
 
 }
 
