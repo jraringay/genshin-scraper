@@ -26,7 +26,8 @@ const {
   elemStones,
   localMats,
   commonMats,
-  talentMats
+  talentMats,
+  weaponPrimary
 } = require("../controller/ascensionMats")
 
 // Weapon Routes
@@ -48,10 +49,11 @@ router.get("/ingredients", ingredients);
 router.get("/potions", potions);
 
 // Ascension Materials Routes
-router.get("/jewels", jewels);
-router.get("/elemstones", elemStones);
-router.get("/localmats", localMats);
-router.get("/commonmats", commonMats);
-router.get("/talentmats", talentMats);
+router.get("/character-ascension/jewels", jewels);
+router.get("/character-ascension/elemstones", elemStones);
+router.get("/character-ascension/localmats", localMats);
+router.get("/character-ascension/commonmats", commonMats);
+router.get("/talent-ascension", talentMats);
+router.get("/weapon-ascension/primary", weaponPrimary);
 
 module.exports = router;
