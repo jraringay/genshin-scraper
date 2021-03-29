@@ -24,7 +24,8 @@ const {
 const {
   jewels,
   elemStones,
-  localMats
+  localMats,
+  commonMats
 } = require("../controller/ascensionMats")
 
 // Weapon Routes
@@ -49,5 +50,6 @@ router.get("/potions", potions);
 router.get("/jewels", jewels);
 router.get("/elemstones", elemStones);
 router.get("/localmats", localMats);
+router.get("/commonmats", commonMats);
 
 module.exports = router;
