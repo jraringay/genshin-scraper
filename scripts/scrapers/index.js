@@ -2,9 +2,11 @@
 const weapons = require("./weapons/index");
 const characters = require("./characters/index");
 const artifactSets = require("./artifacts/index");
+const consumables = require("./consumables/index");
 
 module.exports = {
   weapons,
   characters,
-  artifactSets
+  artifactSets,
+  consumables
 }

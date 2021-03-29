@@ -16,21 +16,25 @@ const extractBows = selector => {
 }
 
 const scrapeBows = async () => {
-  const url = "https://genshin.honeyhunterworld.com/bow/"
-  const html = await fetchHtml(url);
-  const selector = cheerio.load(html);
-  // const searchResults = selector("body")
-  //   .find(".wrappercont > .art_stat_table");
-  const searchResults = selector("body")
+  try {
+    const url = "https://genshin.honeyhunterworld.com/bow/"
+    const html = await fetchHtml(url);
+    const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    //   .find(".wrappercont > .art_stat_table");
+    const searchResults = selector("body")
     .find("a[href^='/db/weapon/']:lt(43):odd");
   
-  const bows = searchResults.map((index, element) => {
-    const elementSelector = selector(element);
-    return extractBows(elementSelector);
-  })
-  .get();
+    const bows = searchResults.map((index, element) => {
+      const elementSelector = selector(element);
+      return extractBows(elementSelector);
+    })
+    .get();
       
-  return bows;  
+    return bows;
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
+  }
 }
 
 module.exports = scrapeBows;

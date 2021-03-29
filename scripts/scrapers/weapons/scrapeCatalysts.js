@@ -16,21 +16,27 @@ const extractCatalysts = selector => {
 }
 
 const scrapeCatalysts = async () => {
-  const url = "https://genshin.honeyhunterworld.com/catalyst/"
-  const html = await fetchHtml(url);
-  const selector = cheerio.load(html);
-  // const searchResults = selector("body")
-  //   .find(".wrappercont > .art_stat_table");
-  const searchResults = selector("body")
+  try {
+    const url = "https://genshin.honeyhunterworld.com/catalyst/"
+    const html = await fetchHtml(url);
+    const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    //   .find(".wrappercont > .art_stat_table");
+    const searchResults = selector("body")
     .find("a[href^='/db/weapon/']:lt(42):odd");
   
-  const catalysts = searchResults.map((index, element) => {
-    const elementSelector = selector(element);
-    return extractCatalysts(elementSelector);
-  })
-  .get();
+    const catalysts = searchResults.map((index, element) => {
+      const elementSelector = selector(element);
+      return extractCatalysts(elementSelector);
+    })
+    .get();
       
-  return catalysts;  
+    return catalysts;
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
+  }
+  
+    
 }
 
 module.exports = scrapeCatalysts;

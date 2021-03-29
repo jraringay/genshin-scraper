@@ -17,21 +17,27 @@ const extractCharacters = selector => {
 }
 
 const scrapeCharacters = async () => {
-  const url = "https://genshin.honeyhunterworld.com/db/char/characters/"
-  const html = await fetchHtml(url);
-  const selector = cheerio.load(html);
-  // const searchResults = selector("body")
-  //   .find(".wrappercont > .art_stat_table");
-  const searchResults = selector("body")
+  try {
+    const url = "https://genshin.honeyhunterworld.com/db/char/characters/"
+    const html = await fetchHtml(url);
+    const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    //   .find(".wrappercont > .art_stat_table");
+    const searchResults = selector("body")
     .find(".char_sea_cont > a[href^='/db/char/']:odd");
   
-  const characters = searchResults.map((index, element) => {
-    const elementSelector = selector(element);
-    return extractCharacters(elementSelector);
-  })
-  .get();
+    const characters = searchResults.map((index, element) => {
+      const elementSelector = selector(element);
+      return extractCharacters(elementSelector);
+    })
+    .get();
       
-  return characters;  
+    return characters;
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
+  }
+  
+    
 }
 
 /* Backup code */
