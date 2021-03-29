@@ -4,6 +4,7 @@ const fetchHtml = require("../../../utilities/fetchHtml");
 
 const extractCharacters = selector => {
   const characterUrl = selector
+    .find("a[href^='/db/char/']")
     .attr("href")
     .trim();
 
@@ -24,7 +25,7 @@ const scrapeCharacters = async () => {
     // const searchResults = selector("body")
     //   .find(".wrappercont > .art_stat_table");
     const searchResults = selector("body")
-    .find(".char_sea_cont > a[href^='/db/char/']:odd");
+    .find(".char_sea_cont");
   
     const characters = searchResults.map((index, element) => {
       const elementSelector = selector(element);
