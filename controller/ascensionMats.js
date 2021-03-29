@@ -2,7 +2,8 @@ const {
   scrapeJewels,
   scrapeElemStones,
   scrapeLocalMats,
-  scrapeCommonMats
+  scrapeCommonMats,
+  scrapeTalentMats
 } = require("../scripts/scrapers/index").ascensionMats;
 
 module.exports = {
@@ -39,6 +40,16 @@ module.exports = {
   commonMats: async (_req, res) => {
     try {
       const result = await scrapeCommonMats();
+      console.log(result.length);
+      res.json(result);
+    } catch (error) {
+      console.error(`ERROR: ${error.message}`);
+    }
+  },
+
+  talentMats: async (_req, res) => {
+    try {
+      const result = await scrapeTalentMats();
       console.log(result.length);
       res.json(result);
     } catch (error) {
