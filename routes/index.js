@@ -22,7 +22,8 @@ const {
 } = require("../controller/consumables");
 
 const {
-  jewels
+  jewels,
+  elemStones
 } = require("../controller/ascensionMats")
 
 // Weapon Routes
@@ -45,5 +46,6 @@ router.get("/potions", potions);
 
 // Ascension Materials Routes
 router.get("/jewels", jewels);
+router.get("/elemstones", elemStones);
 
 module.exports = router;
