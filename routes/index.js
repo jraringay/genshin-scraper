@@ -29,12 +29,19 @@ const {
   talentMats,
   weaponPrimary,
   weaponSecondary
-} = require("../controller/ascensionMats")
+} = require("../controller/ascensionMats");
 
 const {
   charExp,
   weaponExp
-} = require("../controller/experienceMats")
+} = require("../controller/experienceMats");
+
+const {
+  smithing,
+  alchemy,
+  cooking,
+  processedFood
+} = require("../controller/recipes");
 
 // Weapon Routes
 router.get("/swords", swords);
@@ -66,5 +73,11 @@ router.get("/weapon-ascension/secondary", weaponSecondary);
 // Experience Materials Routes
 router.get("/character-exp", charExp);
 router.get("/weapon-exp", weaponExp);
+
+// Recipe Routes
+router.get("/recipes/smithing", smithing);
+router.get("/recipes/alchemy", alchemy);
+router.get("/recipes/cooking", cooking);
+router.get("/recipes/processing", processedFood);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const artifactSets = require("./artifacts/index");
 const consumables = require("./consumables/index");
 const ascensionMats = require("./ascensionMats/index");
 const experienceMats = require("./experienceMats/index")
+const recipes = require("./recipes/index")
 
 module.exports = {
   weapons,
@@ -12,5 +13,6 @@ module.exports = {
   artifactSets,
   consumables,
   ascensionMats,
-  experienceMats
+  experienceMats,
+  recipes
 }
