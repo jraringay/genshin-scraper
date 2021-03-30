@@ -2,6 +2,8 @@
 const cheerio = require("cheerio");
 const fetchHtml = require("../../../utilities/fetchHtml");
 
+let characterList = []
+
 const extractCharacters = selector => {
   const characterUrl = selector
     .find("a[href^='/db/char/']")
@@ -13,6 +15,8 @@ const extractCharacters = selector => {
     .text()
     .trim();
 
+  characterList.push(characterUrl);
+  
   return { characterUrl, characterName };
 
 }
@@ -32,36 +36,29 @@ const scrapeCharacters = async () => {
       return extractCharacters(elementSelector);
     })
     .get();
-      
+    console.log(characterList);
     return characters;
   } catch (error) {
     console.error(`ERROR: ${error.message}`);
   }
   
-    
 }
 
-/* Backup code */
-// Weapon / Type / Rarity / ATK / Secondary / Passive / Bonus
-// const scrapeWeapons = async () => {
-//   const weaponUrl = "https://genshin.gg/weapons";
+// .item_main_table
+// .itempic src
+// tr(1) td(1)
+// tr(2) td(1)
+// tr(3) td(1)
+// tr(4) td(1)
+// tr(5) td(1)
+// tr(6) td(1)
+// tr(7) td(1)
+// tr(8) td(1)
+// tr(9) td(1)
+// tr(10) td(1)
+// tr(11) td(1)
+// tr(12) td(1)
 
-//   const html = await fetchHtml(weaponUrl);
-
-//   const selector = cheerio.load(html);
-
-//   const searchResults = selector("body")
-//     .find(".rt-thead -header > .rt-tbody > .rt-tr-group");
-
-//   const weapons = searchResults.map((index, element) => {
-//     const elementSelector = selector(el);
-//     return extractWeapons(elementSelector);
-//   })
-//   .get();
-
-//   return weapons;
-
-// };
 
 
 
