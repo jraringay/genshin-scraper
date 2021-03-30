@@ -3,7 +3,7 @@ const {
   scrapeSmithing,
   scrapeAlchemy,
   scrapeCooking,
-  scrapeProcessing
+  scrapeProcessedFood
 } = require("../scripts/scrapers/index").recipes;
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
 
   processedFood: async (_req, res) => {
     try {
-      const result = await scrapeProcessing();
+      const result = await scrapeProcessedFood();
       console.log(result.length);
       res.json(result);
     } catch (error) {
