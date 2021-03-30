@@ -1,4 +1,4 @@
-// Call weapon scraper scripts
+// Call consumable scraper scripts
 const {
   scrapeFood,
   scrapeIngredients,

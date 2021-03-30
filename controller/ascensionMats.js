@@ -1,3 +1,4 @@
+// Call ascension material scraper scripts
 const {
   scrapeJewels,
   scrapeElemStones,

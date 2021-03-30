@@ -1,3 +1,4 @@
+// Call artifact set scraper scripts
 const {
   scrapeArtifactSets
 } = require("../scripts/scrapers/index").artifactSets;

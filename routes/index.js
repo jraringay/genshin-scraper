@@ -31,6 +31,11 @@ const {
   weaponSecondary
 } = require("../controller/ascensionMats")
 
+const {
+  charExp,
+  weaponExp
+} = require("../controller/experienceMats")
+
 // Weapon Routes
 router.get("/swords", swords);
 router.get("/claymores", claymores);
@@ -57,5 +62,9 @@ router.get("/character-ascension/commonmats", commonMats);
 router.get("/talent-ascension", talentMats);
 router.get("/weapon-ascension/primary", weaponPrimary);
 router.get("/weapon-ascension/secondary", weaponSecondary);
+
+// Experience Materials Routes
+router.get("/character-exp", charExp);
+router.get("/weapon-exp", weaponExp);
 
 module.exports = router;

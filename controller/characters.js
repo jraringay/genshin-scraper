@@ -1,3 +1,4 @@
+// Call character scraper scripts
 const {
   scrapeCharacters
 } = require("../scripts/scrapers/index").characters;
