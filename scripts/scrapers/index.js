@@ -7,6 +7,8 @@ const ascensionMats = require("./ascensionMats/index");
 const experienceMats = require("./experienceMats/index")
 const recipes = require("./recipes/index")
 
+// Link to audio files https://genshin.honeyhunterworld.com/audio/quotes/
+
 module.exports = {
   weapons,
   characters,
