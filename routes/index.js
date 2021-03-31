@@ -9,6 +9,7 @@ const {
 
 const {
   characters,
+  charactersTwo
 } = require("../controller/characters");
 
 const {
@@ -52,6 +53,7 @@ router.get("/catalysts", catalysts);
 
 // Character Route
 router.get("/characters", characters);
+router.get("/characterstwo", charactersTwo);
 
 // Artifact Sets Route
 router.get("/artifacts", artifactSets);
