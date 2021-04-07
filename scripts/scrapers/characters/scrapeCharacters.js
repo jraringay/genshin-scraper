@@ -2,7 +2,33 @@
 const cheerio = require("cheerio");
 const fetchHtml = require("../../../utilities/fetchHtml");
 
-let characterList = []
+let characterList = [];
+let $;
+
+// Helper function to capitalize first character of a string.
+const capitalize = (s) => {
+  if (typeof s !== 'string') {
+    return ''
+  }
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+};
+
+// Helper function to turn string format into camel case.
+const camelCase = (text) => {
+  if (typeof text !== 'string') {
+    return ''
+  }
+  let first = true;
+  return text.split(' ')
+  .map((val) => {
+    if (first) {
+      first = false;
+      return val.toLowerCase()
+    }
+    return capitalize(val)
+  })
+  .join('');
+}
 
 const extractCharacters = selector => {
   const characterUrl = selector
@@ -25,7 +51,7 @@ const scrapeCharacters = async () => {
   try {
     const url = "https://genshin.honeyhunterworld.com/db/char/characters/"
     const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
+    const selector = $ = cheerio.load(html);
     // const searchResults = selector("body")
     //   .find(".wrappercont > .art_stat_table");
     const searchResults = selector("body")
@@ -73,13 +99,6 @@ let extractCharacterInfo = selector => {
   .find("#live_data > .item_main_table:eq(0) tbody tr:eq(5) td:eq(1) img")
   .attr("src")
   .trim();
-  
-  const capitalize = (s) => {
-    if (typeof s !== 'string') {
-      return ''
-    }
-    return s.charAt(0).toUpperCase() + s.slice(1)
-  };
 
   const characterElement = capitalize(elementSrc.slice(elementSrc.lastIndexOf("/")+1, elementSrc.indexOf("_")));
 
@@ -125,58 +144,89 @@ let extractCharacterInfo = selector => {
   //   return table;
   // }
   
-  let getStats = (selector, count) => {
-    let baseLevel = []
-    let baseStats = []
-    for (let index = 1; index <= count; index++) {
-      let bLevel = selector
-      .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(0)`)
-      .text()
-      .trim();
-
-      let getStatsInfo = selector => {
-        let hp = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(1)`)
-        .text()
-        .trim();
-
-        let atk = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(2)`)
-        .text()
-        .trim();
-
-        let def = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(3)`)
-        .text()
-        .trim();
-
-        let hpPercentage = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(4)`)
-        .text()
-        .trim();
-
-        let critRate = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(5)`)
-        .text()
-        .trim();
-
-        let critDmg = selector
-        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(6)`)
-        .text()
-        .trim();
-
-        return {hp, atk, def, hpPercentage, critRate, critDmg};
-    }
-
-    let bStats = getStatsInfo(selector); 
-
-    baseLevel.push(bLevel)
-    baseStats.push(bStats)
+  let getStats = (selector) => {
+    let stats = [];
+    let headers = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(0) td`)
+        .filter((_, node) => $(node).text().trim() !== 'Ascension'); // TODO: Can probably be added back in with special handling
+    let props = []
+    headers.each((_, node) => {
+      const text = $(node).text().trim();
+      props.push(camelCase(text.replace(/[^[a-z\s]/i, '')));
+    })
     
+    const rows = selector
+      .find(`#live_data .add_stat_table:eq(1) tr`).length;
+    
+    for (let index = 1; index < rows; index++) {
+      const row = {};
+      for (let field = 0; field < props.length; field++) {
+        row[props[field]] = selector
+          .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(${field})`)
+          .text()
+          .trim();
+      }
+      stats.push(row)
     }
+       
+    return stats;
+
+  // Backup - working
+
+  // let getStats = (selector, count) => {
+  //   let baseLevel = []
+  //   let baseStats = []
+  //   for (let index = 1; index <= count; index++) {
+  //     let bLevel = selector
+  //     .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(0)`)
+  //     .text()
+  //     .trim();
+
+  //     let getStatsInfo = selector => {
+  //       let hp = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(1)`)
+  //       .text()
+  //       .trim();
+
+  //       let atk = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(2)`)
+  //       .text()
+  //       .trim();
+
+  //       let def = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(3)`)
+  //       .text()
+  //       .trim();
+
+  //       let hpPercentage = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(4)`)
+  //       .text()
+  //       .trim();
+
+  //       let critRate = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(5)`)
+  //       .text()
+  //       .trim();
+
+  //       let critDmg = selector
+  //       .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(6)`)
+  //       .text()
+  //       .trim();
+
+  //       return {hp, atk, def, hpPercentage, critRate, critDmg};
+  //   }
+
+  //   let bStats = getStatsInfo(selector); 
+
+  //   baseLevel.push(bLevel)
+  //   baseStats.push(bStats)
+    
+  //   }
   
-    return {baseLevel, baseStats};
+  //   return {baseLevel, baseStats};
     
+    // BAckup
+
     // const baseLevel = selector
     // .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(0)")
     // .text()
@@ -221,8 +271,8 @@ let extractCharacterInfo = selector => {
     // return {baseLevel, baseStats};
   }
 
-  const statProgression = getStats(selector, 14);
-
+  // const statProgression = getStats(selector, 14);
+  const statProgression = getStats(selector);
 
   return { characterName, characterTitle, characterAllegiance, characterRarity, weaponType, characterElement, characterBirthday, astrolabeName, chineseVoice, japaneseVoice, englishVoice, koreanVoice, inGameDescription, statProgression };
 }
