@@ -125,52 +125,103 @@ let extractCharacterInfo = selector => {
   //   return table;
   // }
   
-  const getStats = selector => {
-    const baseLevel = selector
-    .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(0)")
-    .text()
-    .trim();
-
-    const getStatsInfo = selector => {
-      const hp = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(1)")
+  let getStats = (selector, count) => {
+    let baseLevel = []
+    let baseStats = []
+    for (let index = 1; index <= count; index++) {
+      let bLevel = selector
+      .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(0)`)
       .text()
       .trim();
 
-      const atk = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(2)")
-      .text()
-      .trim();
+      let getStatsInfo = selector => {
+        let hp = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(1)`)
+        .text()
+        .trim();
 
-      const def = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(3)")
-      .text()
-      .trim();
+        let atk = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(2)`)
+        .text()
+        .trim();
 
-      const hpPercentage = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(4)")
-      .text()
-      .trim();
+        let def = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(3)`)
+        .text()
+        .trim();
 
-      const critRate = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(5)")
-      .text()
-      .trim();
+        let hpPercentage = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(4)`)
+        .text()
+        .trim();
 
-      const critDmg = selector
-      .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(6)")
-      .text()
-      .trim();
+        let critRate = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(5)`)
+        .text()
+        .trim();
 
-      return {hp, atk, def, hpPercentage, critRate, critDmg};
+        let critDmg = selector
+        .find(`#live_data .add_stat_table:eq(1) tr:eq(${index}) td:eq(6)`)
+        .text()
+        .trim();
+
+        return {hp, atk, def, hpPercentage, critRate, critDmg};
     }
 
-    const baseStats = getStatsInfo(selector); 
+    let bStats = getStatsInfo(selector); 
 
+    baseLevel.push(bLevel)
+    baseStats.push(bStats)
+    
+    }
+  
     return {baseLevel, baseStats};
+    
+    // const baseLevel = selector
+    // .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(0)")
+    // .text()
+    // .trim();
+
+    // const getStatsInfo = selector => {
+    //   const hp = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(1)")
+    //   .text()
+    //   .trim();
+
+    //   const atk = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(2)")
+    //   .text()
+    //   .trim();
+
+    //   const def = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(3)")
+    //   .text()
+    //   .trim();
+
+    //   const hpPercentage = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(4)")
+    //   .text()
+    //   .trim();
+
+    //   const critRate = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(5)")
+    //   .text()
+    //   .trim();
+
+    //   const critDmg = selector
+    //   .find("#live_data .add_stat_table:eq(1) tr:eq(1) td:eq(6)")
+    //   .text()
+    //   .trim();
+
+    //   return {hp, atk, def, hpPercentage, critRate, critDmg};
+    // }
+
+    // const baseStats = getStatsInfo(selector); 
+
+    // return {baseLevel, baseStats};
   }
 
-  const statProgression = getStats(selector);
+  const statProgression = getStats(selector, 14);
 
 
   return { characterName, characterTitle, characterAllegiance, characterRarity, weaponType, characterElement, characterBirthday, astrolabeName, chineseVoice, japaneseVoice, englishVoice, koreanVoice, inGameDescription, statProgression };
