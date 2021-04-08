@@ -1,6 +1,7 @@
 // Call weapon scraper scripts
 const {
   scrapeSwords,
+  scrapeSwordsTwo,
   scrapeClaymores,
   scrapeClaymoresTwo,
   scrapePolearms,
@@ -17,6 +18,16 @@ module.exports = {
     try {
       const result = await scrapeSwords();
       console.log(result.length);
+      res.json(result);
+    } catch (error) {
+      console.error(`ERROR: ${error.message}`);
+    }
+  },
+
+  swordsTwo: async (_req, res) => {
+    try {
+      const result = await scrapeSwordsTwo();
+      // console.log(result.length);
       res.json(result);
     } catch (error) {
       console.error(`ERROR: ${error.message}`);

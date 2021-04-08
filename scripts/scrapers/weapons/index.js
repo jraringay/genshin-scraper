@@ -1,5 +1,6 @@
 // Call the weapon scrapers from within the folder
-const scrapeSwords = require("./scrapeSwords")
+const scrapeSwords = require("./scrapeSwords").scrapeSwords;
+const scrapeSwordsTwo = require("./scrapeSwords").scrapeSwordsTwo;
 const scrapeClaymores = require("./scrapeClaymores").scrapeClaymores;
 const scrapeClaymoresTwo = require("./scrapeClaymores").scrapeClaymoresTwo;
 const scrapePolearms = require("./scrapePolearms").scrapePolearms;
@@ -11,6 +12,7 @@ const scrapeCatalystsTwo = require("./scrapeCatalysts").scrapeCatalystsTwo;
 
 module.exports = {
   scrapeSwords,
+  scrapeSwordsTwo,
   scrapeClaymores,
   scrapeClaymoresTwo,
   scrapePolearms,
