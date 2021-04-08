@@ -2,6 +2,7 @@
 const {
   scrapeSwords,
   scrapeClaymores,
+  scrapeClaymoresTwo,
   scrapePolearms,
   scrapeBows,
   scrapeBowsTwo,
@@ -25,6 +26,16 @@ module.exports = {
     try {
       const result = await scrapeClaymores();
       console.log(result.length);
+      res.json(result);
+    } catch (error) {
+      console.error(`ERROR: ${error.message}`);
+    }
+  },
+
+  claymoresTwo: async (_req, res) => {
+    try {
+      const result = await scrapeClaymoresTwo();
+      // console.log(result.length);
       res.json(result);
     } catch (error) {
       console.error(`ERROR: ${error.message}`);

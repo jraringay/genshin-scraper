@@ -6,7 +6,8 @@ const {
   bows,
   catalysts,
   bowsTwo,
-  catalystsTwo
+  catalystsTwo,
+  claymoresTwo
 } = require("../controller/weapons");
 
 const {
@@ -56,6 +57,7 @@ router.get("/", function (req, res) {
 // Weapon Routes
 router.get("/swords", swords);
 router.get("/claymores", claymores);
+router.get("/claymoresTwo", claymoresTwo);
 router.get("/polearms", polearms);
 router.get("/bows", bows);
 router.get("/bowsTwo", bowsTwo);
