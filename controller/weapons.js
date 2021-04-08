@@ -5,7 +5,8 @@ const {
   scrapePolearms,
   scrapeBows,
   scrapeBowsTwo,
-  scrapeCatalysts
+  scrapeCatalysts,
+  scrapeCatalystsTwo
 } = require("../scripts/scrapers/index").weapons;
 
 module.exports = {
@@ -68,5 +69,16 @@ module.exports = {
     } catch (error) {
       console.error(`ERROR: ${error.message}`);
     }
+  },
+
+  catalystsTwo: async (_req, res) => {
+    try {
+      const result = await scrapeCatalystsTwo();
+      // console.log(result.length);
+      res.json(result);
+    } catch (error) {
+      console.error(`ERROR: ${error.message}`);
+    }
   }
+
 };

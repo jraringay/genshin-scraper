@@ -1,34 +1,11 @@
 // Call required packages
 const cheerio = require("cheerio");
 const fetchHtml = require("../../../utilities/fetchHtml");
+const capitalize = require("../../../utilities/capitalize");
+const camelCase = require("../../../utilities/camelCase");
 
 let characterList = [];
 let $;
-
-// Helper function to capitalize first character of a string.
-const capitalize = (s) => {
-  if (typeof s !== 'string') {
-    return ''
-  }
-  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
-};
-
-// Helper function to turn string format into camel case.
-const camelCase = (text) => {
-  if (typeof text !== 'string') {
-    return ''
-  }
-  let first = true;
-  return text.split(' ')
-  .map((val) => {
-    if (first) {
-      first = false;
-      return val.toLowerCase()
-    }
-    return capitalize(val)
-  })
-  .join('');
-}
 
 const extractCharacters = selector => {
   const characterUrl = selector

@@ -4,7 +4,8 @@ const scrapeClaymores = require("./scrapeClaymores");
 const scrapePolearms = require("./scrapePolearms");
 const scrapeBows = require("./scrapeBows").scrapeBows;
 const scrapeBowsTwo = require("./scrapeBows").scrapeBowsTwo;
-const scrapeCatalysts = require("./scrapeCatalysts");
+const scrapeCatalysts = require("./scrapeCatalysts").scrapeCatalysts;
+const scrapeCatalystsTwo = require("./scrapeCatalysts").scrapeCatalystsTwo;
 
 module.exports = {
   scrapeSwords,
@@ -12,5 +13,6 @@ module.exports = {
   scrapePolearms,
   scrapeBows,
   scrapeBowsTwo,
-  scrapeCatalysts
+  scrapeCatalysts,
+  scrapeCatalystsTwo
 }
