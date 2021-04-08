@@ -19,6 +19,7 @@ const {
 
 const {
   artifactSets,
+  artifactSetsTwo
 } = require("../controller/artifactSets");
 
 const {
@@ -74,6 +75,7 @@ router.get("/charactersTwo", charactersTwo);
 
 // Artifact Sets Route
 router.get("/artifacts", artifactSets);
+router.get("/artifactsTwo", artifactSetsTwo);
 
 // Consumable Routes
 router.get("/food", food);
