@@ -122,49 +122,41 @@ const scrapeClaymoresTwo = async () => {
   try {
     await scrapeClaymores();
   
-    const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_slasher/"
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const searchResults = selector("body")
-    .find(".entry.clearfix");
+    // const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_slasher/"
+    // const html = await fetchHtml(url);
+    // const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    // .find(".entry.clearfix");
   
-    const claymoreInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractClaymoreInfo(elementSelector);
-    })
-    .get();
-    console.log(claymoreInfo);
-    return claymoreInfo;
+    // const claymoreInfo = extractClaymoreInfo(searchResults);
+    // console.log(claymoreInfo);
+    // return claymoreInfo;
 
 
     // Using Promise.all()
 
-    // let promiseArr = [];
-    // let resultArr = [];
+    let promiseArr = [];
+    let resultArr = [];
 
-    // for (const element of claymoreList) {
-    //   const url = "https://genshin.honeyhunterworld.com" + element;
-    //   let html = fetchHtml(url);
-    //   promiseArr.push(html);
-    // }
+    for (const element of claymoreList) {
+      const url = "https://genshin.honeyhunterworld.com" + element;
+      let html = fetchHtml(url);
+      promiseArr.push(html);
+    }
 
-    // const allClaymores = await Promise.all(promiseArr);
+    const allClaymores = await Promise.all(promiseArr);
 
-    // for (const claymore of allClaymores) {
-    //   let selector = cheerio.load(claymore);
-    //   let searchResults = selector("body")
-    //     .find(".entry.clearfix");
-    //   // console.log(searchResults)
-    //   let claymoreInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractClaymoreInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(claymoreInfo)
-    //   resultArr.push(claymoreInfo)
-    // }
+    for (const claymore of allClaymores) {
+      let selector = cheerio.load(claymore);
+      let searchResults = selector("body")
+        .find(".entry.clearfix");
+      // console.log(searchResults)
+      let claymoreInfo = extractClaymoreInfo(searchResults);
+      console.log(claymoreInfo);
+      resultArr.push(claymoreInfo);
+    }
     
-    // return resultArr;
+    return resultArr;
     
   } catch (error) {
     console.error(`ERROR: ${error.name} : ${error.message}`);

@@ -122,49 +122,41 @@ const scrapePolearmsTwo = async () => {
   try {
     await scrapePolearms();
   
-    const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_pole/"
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const searchResults = selector("body")
-    .find(".entry.clearfix");
+    // const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_pole/"
+    // const html = await fetchHtml(url);
+    // const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    // .find(".entry.clearfix");
   
-    const polearmInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractPolearmInfo(elementSelector);
-    })
-    .get();
-    console.log(polearmInfo);
-    return polearmInfo;
+    // const polearmInfo = extractPolearmInfo(searchResults);
+    // console.log(polearmInfo);
+    // return polearmInfo;
 
 
     // Using Promise.all()
 
-    // let promiseArr = [];
-    // let resultArr = [];
+    let promiseArr = [];
+    let resultArr = [];
 
-    // for (const element of polearmList) {
-    //   const url = "https://genshin.honeyhunterworld.com" + element;
-    //   let html = fetchHtml(url);
-    //   promiseArr.push(html);
-    // }
+    for (const element of polearmList) {
+      const url = "https://genshin.honeyhunterworld.com" + element;
+      let html = fetchHtml(url);
+      promiseArr.push(html);
+    }
 
-    // const allPolearms = await Promise.all(promiseArr);
+    const allPolearms = await Promise.all(promiseArr);
 
-    // for (const polearm of allPolearms) {
-    //   let selector = cheerio.load(polearm);
-    //   let searchResults = selector("body")
-    //     .find(".entry.clearfix");
-    //   // console.log(searchResults)
-    //   let polearmInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractPolearmInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(polearmInfo)
-    //   resultArr.push(polearmInfo)
-    // }
+    for (const polearm of allPolearms) {
+      let selector = cheerio.load(polearm);
+      let searchResults = selector("body")
+        .find(".entry.clearfix");
+      // console.log(searchResults)
+      let polearmInfo = extractPolearmInfo(searchResults);
+      console.log(polearmInfo);
+      resultArr.push(polearmInfo);
+    }
     
-    // return resultArr;
+    return resultArr;
     
   } catch (error) {
     console.error(`ERROR: ${error.name} : ${error.message}`);

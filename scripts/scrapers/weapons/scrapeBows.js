@@ -120,49 +120,41 @@ const scrapeBowsTwo = async () => {
   try {
     await scrapeBows();
   
-    const url = "https://genshin.honeyhunterworld.com/db/weapon/the_stringless/"
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const searchResults = selector("body")
-    .find(".entry.clearfix");
+    // const url = "https://genshin.honeyhunterworld.com/db/weapon/the_stringless/"
+    // const html = await fetchHtml(url);
+    // const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    // .find(".entry.clearfix");
   
-    const bowInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractBowInfo(elementSelector);
-    })
-    .get();
-    console.log(bowInfo);
-    return bowInfo;
+    // const bowInfo = extractBowInfo(searchResults);
+    // console.log(bowInfo);
+    // return bowInfo;
 
 
     // Using Promise.all()
 
-    // let promiseArr = [];
-    // let resultArr = [];
+    let promiseArr = [];
+    let resultArr = [];
 
-    // for (const element of bowList) {
-    //   const url = "https://genshin.honeyhunterworld.com" + element;
-    //   let html = fetchHtml(url);
-    //   promiseArr.push(html);
-    // }
+    for (const element of bowList) {
+      const url = "https://genshin.honeyhunterworld.com" + element;
+      let html = fetchHtml(url);
+      promiseArr.push(html);
+    }
 
-    // const allBows = await Promise.all(promiseArr);
+    const allBows = await Promise.all(promiseArr);
 
-    // for (const bow of allBows) {
-    //   let selector = cheerio.load(bow);
-    //   let searchResults = selector("body")
-    //     .find(".entry.clearfix");
-    //   // console.log(searchResults)
-    //   let bowInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractBowInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(bowInfo)
-    //   resultArr.push(bowInfo)
-    // }
+    for (const bow of allBows) {
+      let selector = cheerio.load(bow);
+      let searchResults = selector("body")
+        .find(".entry.clearfix");
+      // console.log(searchResults)
+      let bowInfo = extractBowInfo(searchResults);
+      console.log(bowInfo);
+      resultArr.push(bowInfo);
+    }
     
-    // return resultArr;
+    return resultArr;
     
   } catch (error) {
     console.error(`ERROR: ${error.name} : ${error.message}`);

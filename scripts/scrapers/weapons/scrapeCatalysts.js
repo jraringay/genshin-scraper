@@ -122,49 +122,41 @@ const scrapeCatalystsTwo = async () => {
   try {
     await scrapeCatalysts();
   
-    const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_agate/"
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const searchResults = selector("body")
-    .find(".entry.clearfix");
+    // const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_agate/"
+    // const html = await fetchHtml(url);
+    // const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    // .find(".entry.clearfix");
   
-    const catalystInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractCatalystInfo(elementSelector);
-    })
-    .get();
-    console.log(catalystInfo);
-    return catalystInfo;
+    // const catalystInfo = extractCatalystInfo(searchResults);
+    // console.log(catalystInfo);
+    // return catalystInfo;
 
 
     // Using Promise.all()
 
-    // let promiseArr = [];
-    // let resultArr = [];
+    let promiseArr = [];
+    let resultArr = [];
 
-    // for (const element of catalystList) {
-    //   const url = "https://genshin.honeyhunterworld.com" + element;
-    //   let html = fetchHtml(url);
-    //   promiseArr.push(html);
-    // }
+    for (const element of catalystList) {
+      const url = "https://genshin.honeyhunterworld.com" + element;
+      let html = fetchHtml(url);
+      promiseArr.push(html);
+    }
 
-    // const allCatalysts = await Promise.all(promiseArr);
+    const allCatalysts = await Promise.all(promiseArr);
 
-    // for (const catalyst of allCatalysts) {
-    //   let selector = cheerio.load(catalyst);
-    //   let searchResults = selector("body")
-    //     .find(".entry.clearfix");
-    //   // console.log(searchResults)
-    //   let catalystInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractCatalystInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(catalystInfo)
-    //   resultArr.push(catalystInfo)
-    // }
+    for (const catalyst of allCatalysts) {
+      let selector = cheerio.load(catalyst);
+      let searchResults = selector("body")
+        .find(".entry.clearfix");
+      // console.log(searchResults)
+      let catalystInfo = extractCatalystInfo(searchResults)
+      console.log(catalystInfo)
+      resultArr.push(catalystInfo)
+    }
     
-    // return resultArr;
+    return resultArr;
     
   } catch (error) {
     console.error(`ERROR: ${error.name} : ${error.message}`);

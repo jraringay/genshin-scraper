@@ -122,49 +122,41 @@ const scrapeSwordsTwo = async () => {
   try {
     await scrapeSwords();
   
-    const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_longsword/"
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const searchResults = selector("body")
-    .find(".entry.clearfix");
+    // const url = "https://genshin.honeyhunterworld.com/db/weapon/blackcliff_longsword/"
+    // const html = await fetchHtml(url);
+    // const selector = cheerio.load(html);
+    // const searchResults = selector("body")
+    // .find(".entry.clearfix");
   
-    const swordInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractSwordInfo(elementSelector);
-    })
-    .get();
-    console.log(swordInfo);
-    return swordInfo;
+    // const swordInfo = extractSwordInfo(searchResults);
+    // console.log(swordInfo);
+    // return swordInfo;
 
 
     // Using Promise.all()
 
-    // let promiseArr = [];
-    // let resultArr = [];
+    let promiseArr = [];
+    let resultArr = [];
 
-    // for (const element of swordList) {
-    //   const url = "https://genshin.honeyhunterworld.com" + element;
-    //   let html = fetchHtml(url);
-    //   promiseArr.push(html);
-    // }
+    for (const element of swordList) {
+      const url = "https://genshin.honeyhunterworld.com" + element;
+      let html = fetchHtml(url);
+      promiseArr.push(html);
+    }
 
-    // const allSwords = await Promise.all(promiseArr);
+    const allSwords = await Promise.all(promiseArr);
 
-    // for (const sword of allSwords) {
-    //   let selector = cheerio.load(sword);
-    //   let searchResults = selector("body")
-    //     .find(".entry.clearfix");
-    //   // console.log(searchResults)
-    //   let swordInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractSwordInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(swordInfo)
-    //   resultArr.push(swordInfo)
-    // }
+    for (const sword of allSwords) {
+      let selector = cheerio.load(sword);
+      let searchResults = selector("body")
+        .find(".entry.clearfix");
+      // console.log(searchResults)
+      let swordInfo = extractSwordInfo(searchResults);
+      console.log(swordInfo);
+      resultArr.push(swordInfo);
+    }
     
-    // return resultArr;
+    return resultArr;
     
   } catch (error) {
     console.error(`ERROR: ${error.name} : ${error.message}`);
