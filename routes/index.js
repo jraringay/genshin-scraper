@@ -6,6 +6,7 @@ const {
   bows,
   catalysts,
   bowsTwo,
+  catalystsTwo
 } = require("../controller/weapons");
 
 const {
@@ -45,6 +46,13 @@ const {
   processedFood
 } = require("../controller/recipes");
 
+// Root
+router.get("/", function (req, res) {
+  res.send(router.stack.map(function (item) {
+    return `<a href="${item.route.path}">${item.route.path}</a><br>`;
+  }).join(""))
+});
+
 // Weapon Routes
 router.get("/swords", swords);
 router.get("/claymores", claymores);
@@ -52,10 +60,11 @@ router.get("/polearms", polearms);
 router.get("/bows", bows);
 router.get("/bowsTwo", bowsTwo);
 router.get("/catalysts", catalysts);
+router.get("/catalystsTwo", catalystsTwo);
 
 // Character Route
 router.get("/characters", characters);
-router.get("/characterstwo", charactersTwo);
+router.get("/charactersTwo", charactersTwo);
 
 // Artifact Sets Route
 router.get("/artifacts", artifactSets);
