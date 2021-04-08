@@ -10,3 +10,9 @@ Initial Commit - More details will be added later on.
 ### Credits for the raw data
 - Genshin Honey Hunter World (https://genshin.honeyhunterworld.com/)
 - Dimbreath (https://github.com/Dimbreath)
+
+
+### Guidance/Mentors
+- Harry Aldin
+- Ryan Tan
+- Elgorath
