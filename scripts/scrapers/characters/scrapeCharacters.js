@@ -163,12 +163,7 @@ const scrapeCharactersTwo = async () => {
     const selector = cheerio.load(html);
     const searchResults = selector("body")
     .find(".entry.clearfix");
-  
-    const characterInfo = searchResults.map((index, element) => {
-      const elementSelector = selector(element);
-      return extractCharacterInfo(elementSelector);
-    })
-    .get();
+    const characterInfo = extractCharacterInfo(searchResults);
     console.log(characterInfo);
     return characterInfo;
 
@@ -191,13 +186,9 @@ const scrapeCharactersTwo = async () => {
     //   let searchResults = selector("body")
     //     .find(".entry.clearfix");
     //   // console.log(searchResults)
-    //   let characterInfo = searchResults.map((index, element) => {
-    //     let elementSelector = selector(element);
-    //     return extractCharacterInfo(elementSelector);
-    //   })
-    //   .get();
-    //   console.log(characterInfo)
-    //   resultArr.push(characterInfo)
+    //   let characterInfo = extractCharacterInfo(searchResults);
+    //   console.log(characterInfo);
+    //   resultArr.push(characterInfo);
     // }
     
     // return resultArr;
