@@ -1,6 +1,8 @@
 // Call required packages
 const cheerio = require("cheerio");
 const fetchHtml = require("../../../utilities/fetchHtml");
+const camelCase = require("../../../utilities/camelCase");
+const capitalize = require("../../../utilities/capitalize");
 
 let artifactSetList = []
 let $;
@@ -84,14 +86,148 @@ let extractArtifactSetInfo = selector => {
   .text()
   .trim();
 
-  return {artifactSetName, artifactSetAltName, artifactSetQuality, twoPieceBonus, fourPieceBonus};
+  const setPiecesChildren = selector
+  .find(".wrappercont .add_stat_table:eq(0) tbody")
+  .children();
+
+  let setPiecesNode = () => {
+    let pieces = [];
+
+    for (const node of setPiecesChildren) {
+      // pieces.push($(node).text());
+      pieces.push({ 
+          url: $(node).find("td a").attr("href"), name: $(node).text()
+        })
+    }
+
+    return pieces;
+
+  }
+
+  let setPieces = setPiecesNode();
+
+  let dropAreaChildren = selector
+  .find(".wrappercont .add_stat_table:eq(1) tbody")
+  .children();
+
+  let dropAreaNode = () => {
+    let area = [];
+
+    for (const node of dropAreaChildren) {
+      area.push({
+        url: $(node).find("td a").attr("href"),
+        name: $(node).text()
+      })
+    }
+
+    return area;
+  }
+
+  let dropArea = dropAreaNode();
+
+  let getMainStatAvailability = (selector) => {
+    let values = [];
+    let statHeaders = selector
+        .find(`.wrappercont .add_stat_table:eq(2) tr:eq(0) td`)
+        .filter((_, node) => $(node).text().trim() !== 'Ascension'); // TODO: Can probably be added back in with special handling
+    let props = []
+    statHeaders.each((_, node) => {
+      const text = $(node).text().trim();
+      if (text === "") {
+        props.push("setPiece");
+      } else {
+        props.push(camelCase(text.replace(/[^a-z\s]/i, '')));
+      }
+    })
+    
+    const rows = selector
+      .find(`.wrappercont .add_stat_table:eq(2) tr`).length;
+    
+    for (let index = 1; index < rows; index++) {
+      const row = {};
+      
+      // for table headers
+      row[props[0]] = selector
+      .find(`.wrappercont .add_stat_table:eq(2) tr:eq(${index}) td:eq(0)`)
+      .text()
+      .trim();
+      
+      for (let field = 1; field < props.length; field++) {
+        
+        row[props[field]] = /green/.test(selector
+          .find(`.wrappercont .add_stat_table:eq(2) tr:eq(${index}) td:eq(${field})`)
+          .attr("style"));
+      }
+      values.push(row)
+    }
+       
+    return values;
+  }
+
+  const mainStatAvailability = getMainStatAvailability(selector);
+
+  // <tr> have blank duplicates for wtf reason why
+  let lqMainStat = (selector) => {
+    const quality = selector
+    .find(".wrappercont .item_secondary_title:eq(3) div")
+    .length;
+
+    let getStats = (selector) => {
+      let stats = [];
+      let headers = selector
+          .find(`.wrappercont .add_stat_table:eq(3) tr:eq(0) td`)
+          .filter((_, node) => $(node).text().trim() !== 'Ascension'); // TODO: Can probably be added back in with special handling
+      let props = []
+      headers.each((_, node) => {
+        const text = $(node).text().trim();
+        if (text === "") {
+          props.push("level");
+        } else {
+          props.push(camelCase(text.replace(/%/, ' Percent')));
+        }
+      })
+      
+      const rows = selector
+        .find(`.wrappercont .add_stat_table:eq(3) tr`).length;
+      
+      for (let index = 1; index < rows; index+=2) {
+        const row = {};
+
+        // for table headers
+        row[props[0]] = selector
+        .find(`.wrappercont .add_stat_table:eq(3) tr:eq(${index}) td:eq(0)`)
+        .text()
+        .trim();
+
+        for (let field = 1; field < props.length; field++) {
+          row[props[field]] = selector
+            .find(`.wrappercont .add_stat_table:eq(3) tr:eq(${index}) td:eq(${field})`)
+            .text()
+            .trim();
+        }
+        stats.push(row)
+      }
+         
+      return stats;
+    }
+  
+    const statProgression = getStats(selector);
+
+    return {quality, statProgression}
+  }
+   
+  const lowQualityMainStatRoll = lqMainStat(selector); 
+
+  // item_secondary_title:eq(3)
+
+  return {artifactSetName, artifactSetAltName, artifactSetQuality, twoPieceBonus, fourPieceBonus, setPieces, dropArea, mainStatAvailability, lowQualityMainStatRoll};
 }
 
 let scrapeArtifactSetsTwo = async () => {
   try {
     await scrapeArtifactSets();
   
-    const url = "https://genshin.honeyhunterworld.com/db/art/family/adventurer/"
+    const url = "https://genshin.honeyhunterworld.com/db/art/family/bloodstained_chivalry/"
     const html = await fetchHtml(url);
     const selector = cheerio.load(html);
     const searchResults = selector("body")

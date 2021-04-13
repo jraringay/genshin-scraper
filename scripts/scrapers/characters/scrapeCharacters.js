@@ -122,7 +122,7 @@ let extractCharacterInfo = selector => {
     let props = []
     headers.each((_, node) => {
       const text = $(node).text().trim();
-      props.push(camelCase(text.replace(/[^[a-z\s]/i, '')));
+      props.push(camelCase(text.replace(/[^a-z\s]/i, '')));
     })
     
     const rows = selector
