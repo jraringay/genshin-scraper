@@ -58,47 +58,47 @@ router.get("/", function (req, res) {
 });
 
 // Weapon Routes
-router.get("/swords", swords);
-router.get("/swordsTwo", swordsTwo);
-router.get("/claymores", claymores);
-router.get("/claymoresTwo", claymoresTwo);
-router.get("/polearms", polearms);
-router.get("/polearmsTwo", polearmsTwo);
-router.get("/bows", bows);
-router.get("/bowsTwo", bowsTwo);
-router.get("/catalysts", catalysts);
-router.get("/catalystsTwo", catalystsTwo);
+router.get("/sword-url", swords);
+router.get("/swords", swordsTwo);
+router.get("/claymore-url", claymores);
+router.get("/claymores", claymoresTwo);
+router.get("/polearm-url", polearms);
+router.get("/polearms", polearmsTwo);
+router.get("/bow-url", bows);
+router.get("/bows", bowsTwo);
+router.get("/catalyst-url", catalysts);
+router.get("/catalysts", catalystsTwo);
 
 // Character Route
-router.get("/characters", characters);
-router.get("/charactersTwo", charactersTwo);
+router.get("/character-url", characters);
+router.get("/characters", charactersTwo);
 
 // Artifact Sets Route
-router.get("/artifacts", artifactSets);
-router.get("/artifactsTwo", artifactSetsTwo);
+router.get("/artifact-url", artifactSets);
+router.get("/artifacts", artifactSetsTwo);
 
 // Consumable Routes
-router.get("/food", food);
-router.get("/ingredients", ingredients);
-router.get("/potions", potions);
+router.get("/food-url", food);
+router.get("/ingredient-url", ingredients);
+router.get("/potion-url", potions);
 
 // Ascension Materials Routes
-router.get("/character-ascension/jewels", jewels);
-router.get("/character-ascension/elemstones", elemStones);
-router.get("/character-ascension/localmats", localMats);
-router.get("/character-ascension/commonmats", commonMats);
-router.get("/talent-ascension", talentMats);
-router.get("/weapon-ascension/primary", weaponPrimary);
-router.get("/weapon-ascension/secondary", weaponSecondary);
+router.get("/character-ascension/jewel-url", jewels);
+router.get("/character-ascension/elemstone-url", elemStones);
+router.get("/character-ascension/localmats-url", localMats);
+router.get("/character-ascension/commonmats-url", commonMats);
+router.get("/talent-ascension-url", talentMats);
+router.get("/weapon-ascension/primary-url", weaponPrimary);
+router.get("/weapon-ascension/secondary-url", weaponSecondary);
 
 // Experience Materials Routes
-router.get("/character-exp", charExp);
-router.get("/weapon-exp", weaponExp);
+router.get("/character-exp-url", charExp);
+router.get("/weapon-exp-url", weaponExp);
 
 // Recipe Routes
-router.get("/recipes/smithing", smithing);
-router.get("/recipes/alchemy", alchemy);
-router.get("/recipes/cooking", cooking);
-router.get("/recipes/processing", processedFood);
+router.get("/recipes/smithing-url", smithing);
+router.get("/recipes/alchemy-url", alchemy);
+router.get("/recipes/cooking-url", cooking);
+router.get("/recipes/processing-url", processedFood);
 
 module.exports = router;
