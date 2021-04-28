@@ -1,6 +1,14 @@
 # Genshin Scraper - README
 
-Initial Commit - More details will be added later on.
+## About Genshin Impact
+
+Genshin Impact is miHoYo's first ever open-world game, where beliefs in "The Seven" converge in the fantasy world of Teyvat. The devastation that once swept the land has finally ceased. Wounds have healed, but the peace that should have fallen over the city of wind, Mondstadt, did not arrive. The domineering Fatui have risen up in the name of "defense" to oppress other city-states. Traveler, the time has come to begin your own adventure with Paimon in this new land!
+
+Check out the game here - https://genshin.mihoyo.com/en
+
+## About the web scraper app
+
+The goal of this app is to scrape game information from an unofficial game database and make an application where it uses the scraped data for various functionalities which will be covered later on once the scraper is complete.
 
 ## Pre-requisites
 - NodeJS
